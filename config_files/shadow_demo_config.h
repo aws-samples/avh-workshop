@@ -1,5 +1,5 @@
 /*
- * FreeRTOS V202011.00
+ * FreeRTOS V202010.00
  * Copyright (C) 2020 Amazon.com, Inc. or its affiliates.  All Rights Reserved.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
@@ -25,8 +25,9 @@
  * 1 tab == 4 spaces!
  */
 
-#ifndef JOBS_DEMO_CONFIG_H
-#define JOBS_DEMO_CONFIG_H
+#ifndef SHADOW_DEMO_CONFIG_H
+#define SHADOW_DEMO_CONFIG_H
+
 
 /**************************************************/
 /******* DO NOT CHANGE the following order ********/
@@ -43,7 +44,7 @@
 
 /* Logging configuration for the Demo. */
 #ifndef LIBRARY_LOG_NAME
-    #define LIBRARY_LOG_NAME    "JobsDemo"
+    #define LIBRARY_LOG_NAME    "ShadowDemo"
 #endif
 
 #ifndef LIBRARY_LOG_LEVEL
@@ -52,15 +53,6 @@
 #include "logging_stack.h"
 
 /************ End of logging configuration ****************/
-
-/**
- * To use this demo, please configure the client's certificate and private key
- * in demos/include/aws_clientcredential_keys.h.
- *
- * For the AWS IoT MQTT broker, refer to the AWS documentation below for details
- * regarding client authentication.
- * https://docs.aws.amazon.com/iot/latest/developerguide/client-authentication.html
- */
 
 /**
  * @brief The MQTT client identifier used in this example.  Each client identifier
@@ -117,15 +109,6 @@
  */
 
 /**
- * @brief The Thing resource name to use in the Jobs demo.
- *
- * A Thing resource is required in the AWS IoT account for using the AWS IoT Jobs
- * service.
- *
- * #define democonfigTHING_NAME "...insert here..."
- */
-
-/**
  * Please configure the client's certificate and private key in
  * demos/include/aws_clientcredential_keys.h.
  */
@@ -135,4 +118,4 @@
  */
 #define democonfigNETWORK_BUFFER_SIZE    ( 1024U )
 
-#endif /* JOBS_DEMO_CONFIG_H */
+#endif /* SHADOW_DEMO_CONFIG_H */

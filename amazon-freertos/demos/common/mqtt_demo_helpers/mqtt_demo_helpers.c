@@ -139,13 +139,13 @@
 /**
  * @brief Transport timeout in milliseconds for transport send and receive.
  */
-#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 2000U )
+#define mqttexampleTRANSPORT_SEND_RECV_TIMEOUT_MS    ( 200U )
 
 /**
  * @brief Maximum number of outgoing publishes maintained in the application
  * until an ack is received from the broker.
  */
-#define MAX_OUTGOING_PUBLISHES                       ( 10U )
+#define MAX_OUTGOING_PUBLISHES                       ( 1U )
 
 /**
  * @brief Milliseconds per second.

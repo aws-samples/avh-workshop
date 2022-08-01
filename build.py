@@ -44,8 +44,8 @@ def run(config, results):
     ts = timestamp()
     results[0].test_report.write(f"console-out-{config.target}-{ts}.log")
     if results[0].success:
-        msgs = re.findall(r'Incoming Publish Message : Hello World!', results[0].output.getvalue())
-        assert(msgs and len(msgs) == 15)
+        msgs = re.findall(r'Demo iteration 1 is successful.', results[0].output.getvalue())
+        assert(msgs and len(msgs) == 1)
  
 
 @matrix_command(needs_shell=False)
