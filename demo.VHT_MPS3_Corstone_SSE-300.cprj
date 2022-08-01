@@ -14,11 +14,13 @@
     <package name="mbedTLS" vendor="ARM" version="1.7.0:1.7.0"/>
     <package name="backoffAlgorithm" vendor="AWS" version="1.0.0-Beta:1.0.0-Beta"/>
     <package name="coreMQTT" vendor="AWS" version="1.1.0-Beta:1.1.0-Beta"/>
+    <package name="coreJSON" vendor="AWS" version="3.0.0-Beta:3.0.0-Beta"/>
     <package name="coreMQTT_Agent" vendor="AWS" version="1.0.1-Beta:1.0.1-Beta"/>
     <package name="corePKCS11" vendor="AWS" version="3.0.0-Beta:3.0.0-Beta"/>
     <package name="PKCS11" vendor="Arm-Packs" version="1.0.0:1.0.0"/>
     <package name="ARM_Compiler" vendor="Keil" version="1.7.2:1.7.2"/>
     <package name="IoT_Socket" vendor="MDK-Packs" version="1.3.0:1.3.0"/>
+    <package name="AWS_IoT_Jobs" vendor="AWS" version="1.1.0-Beta:1.1.0-Beta"/>
   </packages>
 
   <compilers>
@@ -32,7 +34,7 @@
     <cxxflags add="-Wno-macro-redefined -Wno-pragma-pack -Wno-parentheses-equality -O3" compiler="AC6"/>
     <ldflags add="--entry=Reset_Handler" compiler="AC6" file="RTE/Device/SSE-300-MPS3/fvp_sse300_mps3_s.sct"/>
     <defines>MBEDTLS_CONFIG_FILE=\&quot;aws_mbedtls_config.h\&quot;</defines>
-    <includes>./config_files;./amazon-freertos/demos/include;./amazon-freertos/demos/network_manager;./amazon-freertos/demos/common/pkcs11_helpers;./amazon-freertos/libraries/3rdparty/mbedtls_config;./amazon-freertos/libraries/logging/include;./amazon-freertos/libraries/abstractions/platform/include;./amazon-freertos/libraries/abstractions/platform/freertos/include;./amazon-freertos/libraries/abstractions/secure_sockets/include;./amazon-freertos/libraries/abstractions/transport/secure_sockets;./amazon-freertos/libraries/abstractions/wifi/include;./amazon-freertos/libraries/c_sdk/standard/common/include;./amazon-freertos/libraries/c_sdk/standard/common/include/private;./amazon-freertos/libraries/freertos_plus/standard/crypto/include;./amazon-freertos/libraries/freertos_plus/standard/tls/include;Board/AVH_MPS3_Corstone-300;config_files/Socket</includes>
+    <includes>./config_files;./amazon-freertos/demos/include;./amazon-freertos/demos/network_manager;./amazon-freertos/demos/common/pkcs11_helpers;./amazon-freertos/demos/common/mqtt_demo_helpers;./amazon-freertos/libraries/3rdparty/mbedtls_config;./amazon-freertos/libraries/logging/include;./amazon-freertos/libraries/abstractions/platform/include;./amazon-freertos/libraries/abstractions/platform/freertos/include;./amazon-freertos/libraries/abstractions/secure_sockets/include;./amazon-freertos/libraries/abstractions/transport/secure_sockets;./amazon-freertos/libraries/abstractions/wifi/include;./amazon-freertos/libraries/c_sdk/standard/common/include;./amazon-freertos/libraries/c_sdk/standard/common/include/private;./amazon-freertos/libraries/freertos_plus/standard/crypto/include;./amazon-freertos/libraries/freertos_plus/standard/tls/include;Board/AVH_MPS3_Corstone-300;config_files/Socket</includes>
   </target>
 
   <components>
@@ -69,6 +71,8 @@
     <component Cclass="FreeRTOS" Cgroup="backoffAlgorithm" Cvendor="AWS" Cversion="1.0.0"/>
     <component Cclass="FreeRTOS" Cgroup="coreMQTT Agent" Cvendor="AWS" Cversion="1.0.1"/>
     <component Cclass="FreeRTOS" Cgroup="coreMQTT" Cvendor="AWS" Cversion="1.1.0"/>
+    <component Cclass="FreeRTOS" Cgroup="coreJSON" Cvendor="AWS" Cversion="3.0.0"/>
+    <component Cclass="AWS IoT" Cgroup="AWS IoT Jobs" Cvendor="AWS" Cversion="1.1.0"/>
     <component Cclass="FreeRTOS" Cgroup="corePKCS11" Cvariant="Custom" Cvendor="AWS" Cversion="3.0.0"/>
     <component Cclass="Security" Cgroup="PKCS11" Cvariant="No Implementation" Cvendor="AWS" Cversion="3.0.0"/>
     <component Cclass="CMSIS Driver" Cgroup="Ethernet" Csub="ETH_LAN91C111" Cvendor="Keil" Cversion="1.0.0"/>
@@ -90,6 +94,7 @@
     </group>
     <group name="config_files">
       <file category="header" name="./config_files/aws_demo_config.h"/>
+      <file category="header" name="./config_files/shadow_demo_config.h"/>
       <file category="header" name="./config_files/aws_mbedtls_config.h"/>
       <file category="header" name="./config_files/core_mqtt_config.h"/>
       <file category="header" name="./config_files/core_pkcs11_config.h"/>
@@ -115,6 +120,9 @@
     <group name="demos_coreMQTT">
       <file category="sourceC" name="./amazon-freertos/demos/coreMQTT/mqtt_demo_mutual_auth.c"/>
     </group>
+    <group name="demos_jobs">
+      <file category="sourceC" name="./amazon-freertos/demos/jobs_for_aws/jobs_demo.c"/>
+    </group>
     <group name="demos_network_manager">
       <file category="header" name="./amazon-freertos/demos/network_manager/iot_network_manager_private.h"/>
       <file category="sourceC" name="./amazon-freertos/demos/network_manager/aws_iot_network_manager.c"/>
@@ -122,6 +130,10 @@
     <group name="demos_common_pkcs11_helpers">
       <file category="header" name="./amazon-freertos/demos/common/pkcs11_helpers/pkcs11_helpers.h"/>
       <file category="sourceC" name="./amazon-freertos/demos/common/pkcs11_helpers/pkcs11_helpers.c"/>
+    </group>
+    <group name="demos_common_mqtt_helpers">
+      <file category="header" name="./amazon-freertos/demos/common/mqtt_demo_helpers/mqtt_demo_helpers.h"/>
+      <file category="sourceC" name="./amazon-freertos/demos/common/mqtt_demo_helpers/mqtt_demo_helpers.c"/>
     </group>
     <group name="libraries_3rdparty">
       <file category="header" name="./amazon-freertos/libraries/3rdparty/mbedtls_config/threading_alt.h"/>

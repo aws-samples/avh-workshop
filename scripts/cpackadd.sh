@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cpackget -q pack add -a ARM.CMSIS
 cpackget -q pack add -a ARM.CMSIS-Driver
 cpackget -q pack add -a ARM.CMSIS-FreeRTOS.10.4.6
 cpackget -q pack add -a ARM.mbedTLS.1.7.0

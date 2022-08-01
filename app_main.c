@@ -56,7 +56,7 @@ static void app_main (void *argument) {
   int32_t status;
   
   (void)argument;
-  status = -2;
+
   status = network_startup();
 
   if (status == 0) {
