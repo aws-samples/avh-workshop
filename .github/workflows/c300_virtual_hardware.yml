@@ -1,0 +1,71 @@
+# The repository needs to provide the following secrets
+# - AWS_ACCESS_KEY_ID           The id of the access key.
+# - AWS_SECRET_ACCESS_KEY       The access key secret.
+# - AWS_DEFAULT_REGION          The data center region to be used.
+# - AWS_S3_BUCKET_NAME          The name of the S3 storage bucket to be used for data exchange.
+# - AWS_IAM_PROFILE             The IAM profile to be used.
+# - AWS_SECURITY_GROUP_ID       The id of the security group to add the EC2 instance to.
+# - AWS_SUBNET_ID               The id of the network subnet to connect the EC2 instance to.
+
+name: Corstone 300 Arm Virtual Hardware
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
+  AWS_IAM_PROFILE: ${{ secrets.AWS_IAM_PROFILE }}
+  AWS_SECURITY_GROUP_ID: ${{ secrets.AWS_SECURITY_GROUP_ID }}
+  AWS_SUBNET_ID: ${{ secrets.AWS_SUBNET_ID }}
+  
+jobs:
+  corstone_300_generic:
+    runs-on: ubuntu-latest
+      
+    name: Corstone 300 Virtual Hardware Target
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2    
+  
+    - name: Set up Python 3.10
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.10'
+        
+    - name: Install AVH Client for Python
+      run: |
+        pip install git+https://github.com/ARM-software/avhclient.git@v0.1
+
+    - name: Prepare test suite
+      env: 
+        MQTT_BROKER_ENDPOINT: ${{ secrets.MQTT_BROKER_ENDPOINT }}
+        IOT_THING_NAME: ${{ secrets.IOT_THING_NAME }}
+        CLIENT_CERTIFICATE_PEM: ${{ secrets.CLIENT_CERTIFICATE_PEM }}
+        CLIENT_PRIVATE_KEY_PEM: ${{ secrets.CLIENT_PRIVATE_KEY_PEM }}
+      run: |
+        cd amazon-freertos/demos/include
+        envsubst <aws_clientcredential.h.in >aws_clientcredential.h
+        envsubst <aws_clientcredential_keys.h.in >aws_clientcredential_keys.h
+
+    - uses: ammaraskar/gcc-problem-matcher@master
+
+    - name: Run tests
+      id: avh
+      run: |
+        avhclient -b aws execute --specfile avh.yml
+
+    - name: Archive results
+      uses: actions/upload-artifact@v2
+      with:
+        name: results
+        path: |
+          aws_mqtt-c300-*.zip
+          console-out-*.log
+        retention-days: 1
+        if-no-files-found: error
+      if: always()

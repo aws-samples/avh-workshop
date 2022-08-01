@@ -1,0 +1,27 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/0.9.3/tools/projmgr/schemas/clayer.schema.json
+
+layer:
+  # type: Interface AWS
+  # name: WiFi Socket
+  description: AWS Socket connecting over WiFi
+
+  # interfaces:
+  #   - consumes:
+  #     - C_WiFi: 0
+  #     - FreeRTOS:
+  #   - provides:
+  #     - AWS_Socket:
+
+  add-paths:
+    - ../../../config_files/WiFi
+
+  groups:
+    - group: config_files_Interface
+      files:
+        - file: ../../../config_files/WiFi/aws_iot_network_config.h
+        - file: ../../../config_files/WiFi/aws_wifi_config.h
+    - group: Interface_AWS
+      files:
+        - file: ./network_startup.c
+        - file: ./iot_secure_sockets.c
+        - file: ./iot_wifi.c

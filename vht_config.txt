@@ -1,0 +1,3 @@
+mps3_board.visualisation.disable-visualisation=1
+mps3_board.telnetterminal0.start_telnet=0
+mps3_board.uart0.out_file=-

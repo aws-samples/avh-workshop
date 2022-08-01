@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Open-CMSIS-Pack/devtools/schemas/projmgr/0.9.3/tools/projmgr/schemas/clayer.schema.json
+
+layer:
+  # type: Socket
+  # name: Virtual Socket
+  description: IoT Socket interface connecting to Arm Virtual Hardware over Virtual Socket
+
+  # interfaces:
+  #   - consumes:
+  #     - RTOS2:
+  #   - provides:
+  #     - IoT_Socket:
+
+  # packs:
+  #   - pack: MDK-Packs::IoT_Socket
+
+  components:
+    - component: MDK-Packs::IoT Utility:Socket:Custom
+
+  groups:
+    - group: Socket
+      files: 
+        - file: ./socket_startup.c
+        - file: ./iot_socket.c

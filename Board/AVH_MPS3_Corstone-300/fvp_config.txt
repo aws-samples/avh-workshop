@@ -1,0 +1,10 @@
+# Parameters:
+# instance.parameter=value       #(type, mode) default = 'def value' : description : [min..max]
+#------------------------------------------------------------------------------
+mps3_board.hostbridge.interfaceName=                  # (string, init-time) default = ''       : Host Interface
+mps3_board.hostbridge.userNetPorts=                   # (string, init-time) default = ''       : Listening ports to expose in user-mode networking
+mps3_board.hostbridge.userNetSubnet=172.20.51.0/24    # (string, init-time) default = '172.20.51.0/24' : Virtual subnet for user-mode networking
+mps3_board.hostbridge.userNetworking=1                # (bool  , init-time) default = '0'      : Enable user-mode networking
+mps3_board.smsc_91c111.enabled=1                      # (bool  , init-time) default = '0'      : Host interface connection enabled
+mps3_board.smsc_91c111.mac_address=00:02:f7:ef:6e:bf  # (string, init-time) default = '00:02:f7:ef:6e:bf' : Host/model MAC address
+#------------------------------------------------------------------------------
