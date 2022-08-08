@@ -2,7 +2,7 @@ name: "AVH AWS-MQTT Demo"
 workdir: ./
 backend:
   aws:
-    ami-version: ~=1.2
+    ami-version: ~=1.2.3
     instance-type: t3.large
 upload:
   - amazon-freertos/**/*
